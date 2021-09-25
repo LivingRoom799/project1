@@ -50,31 +50,53 @@ public class BasicSet<E> implements BasicSetInterface<E> {
   public BasicSet(BasicSetInterface<E> other) {
     // needs check for duplicate
     //list = new BasicLinkedList<E>(other);
-    
-    
+    list = new BasicLinkedList<E>();
+    for(E n: other){
+      list.add(0,n);
+    }
   }
 
   //add method using list add
   public void add(E elt){
-    if(in(elt)){
+    if(!in(elt)){
       list.add(0, elt);
     }
   }
 
   public void addAll(BasicListInterface<E> elt){
-    
+    for(E n: elt){
+      add(n);
+    }
   }
 
   public BasicSetInterface<E> differenece(BasicSetInterface<E> other){
-    //BasicSetInterface<E> result = list - other;
-    //same size
-    return other;
+  
+    BasicSetInterface<E> tempDifference = new BasicSet<E>();
+    
+    for(E n: list){
+      boolean isIn = false;
+      for(E j: other){
+        if(n.equals(j)){
+          isIn = true;
+          break;
+        }
+      }
+      if(!isIn){
+        tempDifference.add(n);
+      }
+      
+    }
+    return tempDifference;
   }
 
   public boolean equals(BasicSetInterface<E> other){
     //sets can only have unique data, so if every item in set1 is in set2 then they are equal
     //same suze ,,, uses difference to find equality 
-    return true;
+    // A - B = O B - A = O 
+    if(this.differenece(other).isEmpty() && other.differenece(this).isEmpty()){
+      return true;
+    }
+    return false;
   }
 
   public boolean in(E elt){
@@ -82,8 +104,14 @@ public class BasicSet<E> implements BasicSetInterface<E> {
   }
 
   public BasicSetInterface<E> intersection(BasicSetInterface<E> other){
-    //
-    return other;
+    //new set elements only the ones in both
+    BasicSetInterface<E> tempIntersection = new BasicSet<E>();
+    for(E n: list){
+      if(other.in(n)){
+        tempIntersection.add(n);
+      }
+    }
+    return tempIntersection;
   }
 
   public boolean isEmpty(){
@@ -99,7 +127,15 @@ public class BasicSet<E> implements BasicSetInterface<E> {
   }
 
   public BasicSetInterface<E> union(BasicSetInterface<E> other){
-    return other;
+    //two sets all elements that both have
+    BasicSetInterface<E> tempUnion = new BasicSet<E>();
+    for(E n: list){
+      tempUnion.add(n);
+    }
+    for(E j: other){
+      tempUnion.add(j);
+    }
+    return tempUnion;
   }
 
   /**
@@ -111,29 +147,5 @@ public class BasicSet<E> implements BasicSetInterface<E> {
   public Iterator<E> iterator() {
     return (list.iterator());
   }
-
-  /*private class BasicSetIterator implements Iterator<E> {
-    private Node<E> cursor;
-
-    public BasicSetIterator(Node <E> head){
-      cursor = head;
-    }
-  }
-  public boolean hasNext() {
-      return cursor != null;
-    }
-
-    /**
-     
   
-    public E next() {
-      if (! hasNext()) {
-        return null;
-      }
-      E item = cursor.getItem();
-      cursor = cursor.getNext();
-      return item;
-    }
-  }
-  */
 }

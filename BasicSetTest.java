@@ -59,6 +59,18 @@ public class BasicSetTest {
     System.out.println("\nSet F which is sets (B - A) Follows:");
     System.out.println(setF);
 
+    BasicSetInterface<Integer> blank1 = new BasicSet<Integer>();
+    BasicSetInterface<Integer> blank2 = new BasicSet<Integer>();
+    BasicSetInterface<Integer> setG = blank1.differenece(blank2);
+    System.out.println("\nSet G which is sets (blank - blank) Follows:");
+    System.out.println(setG);
+    
+    BasicSetInterface<Integer> setH = setA.differenece(setA);
+    System.out.println("\nSet H which is sets (A - A) Follows:");
+    System.out.println(setH);
+
+
+
     System.out.println("\nElement 2 in Set E:");
     System.out.println(setE.in(2));
     System.out.println("\nElement 2 in set F:");
