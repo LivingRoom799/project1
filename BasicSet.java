@@ -71,22 +71,28 @@ public class BasicSet<E> implements BasicSetInterface<E> {
 
   public BasicSetInterface<E> differenece(BasicSetInterface<E> other){
   
-    BasicSetInterface<E> tempDifference = new BasicSet<E>();
-    
+    BasicSet<E> tempDifference = new BasicSet<E>();
     for(E n: list){
+      if(!other.in(n)){
+        tempDifference.add(n);
+      }
+    }
+    return tempDifference;
+
+     /*for(E n: list){
       boolean isIn = false;
       for(E j: other){
         if(n.equals(j)){
           isIn = true;
           break;
         }
-      }
-      if(!isIn){
+      }   terrible code...
+      if(!isIn){ 
         tempDifference.add(n);
       }
       
     }
-    return tempDifference;
+    return tempDifference;*/
   }
 
   public boolean equals(BasicSetInterface<E> other){
